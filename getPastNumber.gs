@@ -58,7 +58,7 @@ let dynamicPageScraping = () => {
 };
 
 // スプレッドシートにデータを書き込む
-let writeSheet = () => {
+let writeData = () => {
   const spreadsheet = SpreadsheetApp.getActiveSpreadsheet();
   const sheet = spreadsheet.getSheetByName('過去の抽せん番号')
 
