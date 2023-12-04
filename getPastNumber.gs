@@ -60,7 +60,7 @@ let dynamicPageScraping = () => {
 // スプレッドシートにデータを書き込む
 let writeData = () => {
   const spreadsheet = SpreadsheetApp.getActiveSpreadsheet();
-  const sheet = spreadsheet.getSheetByName('過去の抽せん番号')
+  const sheet = spreadsheet.getSheetByName('過去の抽せん番号');
 
   let lastrow = sheet.getLastRow();
   let targetrow = lastrow + 1;
