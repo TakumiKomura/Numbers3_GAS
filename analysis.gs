@@ -127,7 +127,7 @@ function sumsubCaseCaseCorrectRate() {
  */
 function setCandidate(candidate) {
   let lastRow = toSheet.getLastRow();
-  let targetRow = lastRow + 1;
+  let targetRow = 46;
   for(number of candidate){
     toSheet.getRange(targetRow, 1).setValue(number);
     targetRow++;
@@ -135,9 +135,32 @@ function setCandidate(candidate) {
 }
 
 /**
+ * 前回の候補数字を「前回の予想」シートに書き込む
+ * 前回の予想が当たっていれば背景色を赤にする
+ */
+function setPreviousCandidate() {
+  let lastRow = toSheet.getLastRow();
+  let targetRow = 46;
+  let todaysNumber = fromSheet.getRange(fromSheet.getLastRow(), 3).getValue();
+  todaysNumber = parseInt(todaysNumber) % 100;
+
+  const sheet = ss.getSheetByName("前回の予想");
+  for(let i = 0; i < lastRow - targetRow + 1; i++){
+    let candidate = toSheet.getRange(targetRow + i, 1).getValue();
+    sheet.getRange(2 + i, 1).setValue(candidate);
+    sheet.getRange(2 + i, 1).setBackground("white");
+    if(parseInt(candidate) == todaysNumber){
+      sheet.getRange(2 + i, 1).setBackground("red");
+    }
+  }
+}
+
+/**
  * 「直近データと予想」シートの作成
  */
 function setAnalysisSheet() {
+  setPreviousCandidate();
+
   setLast30Data();
 
   let {onesPlaceList, tensPlaceList} = countNumbers();
